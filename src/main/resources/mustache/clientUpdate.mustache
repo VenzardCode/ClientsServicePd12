@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Client Update</title>
+</head>
+<body>
+<div id="clientForm">
+    {{#client}}
+    <form method="post" action="clientUpdateForm">
+        <input type="hidden" name="id" value="{{id}}">
+        <input type="text" placeholder="Surname" name="surname" value="{{surname}}">
+        <input type="text" placeholder="Name" name="name" value="{{name}}">
+        <input type="text" placeholder="Patronymic" name="patronymic" value="{{patronymic}}">
+        <input type="date" name="birthDate" value="1999-07-22" min="1900-01-01" max="2100-12-31">
+        <select name="gender" id="gender">
+            <option value="NONE">NONE</option>
+            <option value="MALE">MALE</option>
+            <option value="FEMALE">FEMALE</option>
+        </select>
+        <input type="text" placeholder="Email" name="email" value="{{email}}">
+        <input type="submit" value="SAVE" id="submitButton">
+    </form>
+    {{/client}}
+</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Client Update</title>
+	<th:block th:insert="~{fragments/headSettings::headSettings}"/>
+</head>
+<body>
+<th:block th:insert="~{fragments/pageHeader::pageHeader}"/>
+<div id="clientForm">
+	<form method="post" th:action="@{/clientUpdateForm}" th:object="${client}">
+		<input type="hidden" name="id" th:value="${client.id}">
+		<input type="text" placeholder="Surname" name="surname" th:value="${client.surname}">
+		<input type="text" placeholder="Name" name="name" th:value="${client.name}">
+		<input type="text" placeholder="Patronymic" name="patronymic" th:value="${client.patronymic}">
+		<input type="date" name="birthDate" value="1999-07-22" min="1900-01-01" max="2100-12-31">
+		<!--		1-->
+		<!--		<select name="gender" id="gender">-->
+		<!--			<option th:each="gender:${T(com.example.clientsservicepd12.models.Client.Gender).values()}"-->
+		<!--					  th:value="${gender}" th:text="${gender}"-->
+		<!--					  th:selected="${gender == client.gender}"></option>-->
+		<!--		</select>-->
+		<!--		2-->
+		<select name="gender" id="gender">
+			<th:block
+					th:each="gender:${T(com.example.clientsservicepd12.models.Client.Gender).values()}">
+				<option th:utext="${gender}" th:selected="${gender == client.gender}"></option>
+			</th:block>
+		</select>
+		<input type="text" placeholder="Email" name="email" th:value="${client.email}">
+		<input type="submit" value="SAVE" id="submitButton">
+	</form>
+</div>
+<div>
+	<form method="post" th:action="@{addPhoneForm}">
+		<input type="hidden" name="clientId" th:value="${client.id}">
+		<input type="text" name="phone">
+		<input type="submit" value="Add Phone">
+	</form>
+</div>
+<div>
+	<form method="post" th:action="@{deletePhoneForm}">
+		<input type="hidden" name="clientId" th:value="${client.id}">
+		<th:block th:each="phone:${phones}">
+			<div>
+				<button type="submit" name="phoneDelete" th:value="${phone.id}">X</button>
+				<input type="text" th:name="${phone.id}" th:value="${phone.phone}" disabled>
+			</div>
+		</th:block>
+	</form>
+</div>
+</body>
+</html>
